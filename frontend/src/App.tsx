@@ -1,14 +1,7 @@
-import { MessageList } from "./components/chat/MessageList";
-import { ChatInput } from "./components/chat/ChatInput";
-import { mockMessages } from "./mocks/messages";
+import { ChatShell } from "./components/chat/ChatShell";
 
 function App() {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      <MessageList messages={mockMessages} />
-      <ChatInput onSend={(text) => console.log("send:", text)} />
-    </div>
-  );
+  return <ChatShell />;
 }
 
 export default App;
