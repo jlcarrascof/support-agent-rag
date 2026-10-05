@@ -10,7 +10,8 @@
     "start": "node dist/index.js",
     "test": "jest",
     "migrate": "node-pg-migrate --envPath .env",
-    "migrate:create": "node-pg-migrate create"
+    "migrate:create": "node-pg-migrate create",
+    "ingest": "tsx src/kb/ingest.ts"
   },
   "license": "MIT",
   "devDependencies": {
