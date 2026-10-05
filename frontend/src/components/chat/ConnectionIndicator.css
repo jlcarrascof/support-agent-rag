@@ -12,3 +12,33 @@
   border-radius: var(--radius-full);
   background: var(--color-text-subtle);
 }
+
+.connection-indicator--online .connection-indicator__dot {
+  background: var(--color-online);
+  box-shadow: 0 0 0 3px var(--color-accent-bg);
+}
+
+.connection-indicator--online .connection-indicator__label {
+  color: var(--color-online);
+}
+
+.connection-indicator--offline .connection-indicator__dot {
+  background: var(--color-danger);
+}
+
+.connection-indicator--offline .connection-indicator__label {
+  color: var(--color-danger);
+}
+
+.connection-indicator--checking .connection-indicator__dot {
+  animation: connection-indicator-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes connection-indicator-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
