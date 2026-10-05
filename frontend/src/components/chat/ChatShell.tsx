@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
+import { ConnectionIndicator } from "./ConnectionIndicator";
+import { useConnectionStatus } from "../../hooks/useConnectionStatus";
 import { mockMessages } from "../../mocks/messages";
 import type { ChatMessage } from "./types";
 import "./ChatShell.css";
 
 export function ChatShell() {
   const [messages, setMessages] = useState<ChatMessage[]>(mockMessages);
+  const connectionStatus = useConnectionStatus();
 
   function handleSend(text: string) {
     const newMessage: ChatMessage = {
@@ -22,6 +25,7 @@ export function ChatShell() {
     <div className="chat-shell">
       <header className="chat-shell__header">
         <span className="chat-shell__title">Support Copilot</span>
+        <ConnectionIndicator status={connectionStatus} />
       </header>
       <MessageList messages={messages} />
       <ChatInput onSend={handleSend} />
