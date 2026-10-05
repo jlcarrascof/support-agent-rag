@@ -21,7 +21,7 @@ export function ChatShell() {
   return (
     <div className="chat-shell">
       <header className="chat-shell__header">
-        <span className="chat-shell__title">Yummy Support Copilot</span>
+        <span className="chat-shell__title">Support Copilot</span>
       </header>
       <MessageList messages={messages} />
       <ChatInput onSend={handleSend} />
