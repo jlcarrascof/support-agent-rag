@@ -4,6 +4,7 @@ import { ChatInput } from "./ChatInput";
 import { ConnectionIndicator } from "./ConnectionIndicator";
 import { useConnectionStatus } from "../../hooks/useConnectionStatus";
 import { sendMessage } from "../../services/api";
+import { formatToolCallSummary } from "./formatToolCall";
 import type { ChatMessage } from "./types";
 import "./ChatShell.css";
 
@@ -26,9 +27,19 @@ export function ChatShell() {
     setMessages((previous) => [...previous, userMessage]);
 
     try {
-      const { reply } = await sendMessage(caseIdRef.current, text);
+      const { reply, toolCalls } = await sendMessage(caseIdRef.current, text);
+
+      const toolMessages: ChatMessage[] = toolCalls.map((call) => ({
+        id: crypto.randomUUID(),
+        role: "tool",
+        text: formatToolCallSummary(call),
+        timestamp: nowTimestamp(),
+        toolName: call.name,
+      }));
+
       setMessages((previous) => [
         ...previous,
+        ...toolMessages,
         { id: crypto.randomUUID(), role: "agent", text: reply, timestamp: nowTimestamp() },
       ]);
     } catch {
