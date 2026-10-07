@@ -14,6 +14,7 @@ function nowTimestamp(): string {
 
 export function ChatShell() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
   const connectionStatus = useConnectionStatus();
   const caseIdRef = useRef(crypto.randomUUID());
 
@@ -25,6 +26,7 @@ export function ChatShell() {
       timestamp: nowTimestamp(),
     };
     setMessages((previous) => [...previous, userMessage]);
+    setIsTyping(true);
 
     try {
       const { reply, toolCalls } = await sendMessage(caseIdRef.current, text);
@@ -52,6 +54,8 @@ export function ChatShell() {
           timestamp: nowTimestamp(),
         },
       ]);
+    } finally {
+      setIsTyping(false);
     }
   }
 
@@ -61,8 +65,8 @@ export function ChatShell() {
         <span className="chat-shell__title">Support Copilot</span>
         <ConnectionIndicator status={connectionStatus} />
       </header>
-      <MessageList messages={messages} />
-      <ChatInput onSend={handleSend} />
+      <MessageList messages={messages} isTyping={isTyping} />
+      <ChatInput onSend={handleSend} disabled={isTyping} />
     </div>
   );
 }
