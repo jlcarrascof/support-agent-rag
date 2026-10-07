@@ -8,15 +8,34 @@
   border-radius: var(--radius-md);
   background: var(--color-accent-bg);
   border: 1px solid var(--color-accent-border);
+  animation: tool-call-bubble-enter 0.2s ease-out;
 }
 
 .tool-call-bubble__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
   font-size: var(--font-size-sm);
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .tool-call-bubble__text {
   font-size: var(--font-size-xs);
   font-family: var(--font-mono);
-  color: var(--color-text-muted);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+@keyframes tool-call-bubble-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
