@@ -4,6 +4,7 @@ import cors from "cors";
 import { healthRouter } from "./routes/health.js";
 import { searchRouter } from "./routes/search.js";
 import { messagesRouter } from "./routes/messages.js";
+import { startConsumer } from "./events/consumer.js";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
@@ -16,6 +17,10 @@ app.use(messagesRouter);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
+});
+
+startConsumer().catch((error) => {
+  console.error("Failed to start events consumer:", error);
 });
 
 export { app };
