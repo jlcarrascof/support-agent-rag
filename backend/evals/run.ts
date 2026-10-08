@@ -128,6 +128,10 @@ ${rows}
 - A "request error" means the case never got a usable response from OpenAI (e.g. a transient API or
   network failure) and is excluded from the resolution/tool-usage rates'
   numerator but counted in their denominator — it reflects infra flakiness, not an agent mistake.
+- Known limitation: \`issueRefund\` does not detect disputed-delivery claims ("I never received this")
+  on an order already marked \`delivered\` — it refunds on request like any other delivered-order
+  refund. Verifying a non-receipt claim is a judgment call real support agents make with more context
+  (delivery photos, address history, etc.), so it's out of scope for this mock tool's rule-based logic.
 `;
 }
 

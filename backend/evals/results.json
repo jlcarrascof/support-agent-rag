@@ -7,25 +7,27 @@
     "toolsCalled": [
       "getOrderStatus"
     ],
-    "reply": "Your order #1234 is currently **in transit** and is estimated to be delivered in about **15 minutes**.",
+    "reply": "Your order 1234 is currently \"in transit\" and is estimated to be delivered in about 15 minutes.",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 3844
+    "latencyMs": 2749,
+    "erroredAttempt": false
   },
   {
-    "id": "order-status-delivered",
-    "category": "order_status",
+    "id": "disputed-delivery-refund",
+    "category": "refund",
     "message": "I never received order 5678, I want my money back",
     "expectedTool": "issueRefund",
     "toolsCalled": [
-      "getOrderStatus"
+      "issueRefund"
     ],
-    "reply": "I see that order 5678 was marked as **delivered**. Could you let me know the delivery address you used and if anyone at that location received the package? If it truly wasn’t delivered, I’ll look into this further for you.",
-    "correctToolUsage": false,
+    "reply": "I've processed the refund for your order 5678, as it was not received. You should see the amount credited back to your account shortly. If you have any other questions or need further assistance, feel free to ask!",
+    "correctToolUsage": true,
     "resolved": true,
-    "hallucinationFlag": true,
-    "latencyMs": 11158
+    "hallucinationFlag": false,
+    "latencyMs": 2723,
+    "erroredAttempt": false
   },
   {
     "id": "order-status-unknown-id",
@@ -35,11 +37,12 @@
     "toolsCalled": [
       "getOrderStatus"
     ],
-    "reply": "\n\nI'm sorry, but I couldn't find an order with the ID 'abcd'. Could you please double-check the order ID? It might be a different combination of letters and numbers. If you have the correct ID, I'd be happy to check the status for you.",
+    "reply": "It looks like there is no order found with the ID \"abcd.\" Please double-check the order ID and try again!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 7149
+    "latencyMs": 2340,
+    "erroredAttempt": false
   },
   {
     "id": "cancel-ride-free-window",
@@ -49,11 +52,12 @@
     "toolsCalled": [
       "cancelRide"
     ],
-    "reply": "Your ride ride-1 has been successfully cancelled! No cancellation fee was applied since you cancelled within the booking window. We're glad we could correct the mistake for you.",
+    "reply": "Your ride (ride-1) has been successfully cancelled at no charge, as it was within the booking window. If you need any further assistance, feel free to ask!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 12435
+    "latencyMs": 3165,
+    "erroredAttempt": false
   },
   {
     "id": "cancel-ride-with-fee",
@@ -61,15 +65,14 @@
     "message": "I'd like to cancel ride-2, will I be charged a fee?",
     "expectedTool": "cancelRide",
     "toolsCalled": [
-      "searchKnowledgeBase",
-      "searchKnowledgeBase",
       "cancelRide"
     ],
-    "reply": "Yes, a cancellation fee will be applied for ride-2. Since a driver was already assigned and en route, the fee compensates them for the trip to your pickup location. The fee has been processed as part of the cancellation. Let me know if you need further assistance!",
+    "reply": "Your ride (ride-2) has been successfully canceled, but a cancellation fee has been applied because a driver was already assigned and en route. If you have any further questions, feel free to ask!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 34779
+    "latencyMs": 2413,
+    "erroredAttempt": false
   },
   {
     "id": "cancel-ride-late-driver-waiver",
@@ -79,11 +82,12 @@
     "toolsCalled": [
       "cancelRide"
     ],
-    "reply": "I've successfully cancelled **ride-3** for you. Since the driver was more than 10 minutes late, the cancellation fee has been waived. You should receive a confirmation shortly.\n\nIs there anything else I can help you with today?",
+    "reply": "I've successfully cancelled ride-3 for you. The cancellation fee has been waived since the driver was more than 10 minutes late. If you need further assistance, feel free to ask!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 18691
+    "latencyMs": 2681,
+    "erroredAttempt": false
   },
   {
     "id": "cancel-ride-in-progress",
@@ -93,11 +97,12 @@
     "toolsCalled": [
       "cancelRide"
     ],
-    "reply": "I'm sorry, but ride-4 is already in progress and cannot be cancelled through our support system. Once a ride has started and the driver is en route, cancellations are no longer possible through our standard process.\n\nHere are your options:\n\n1. **Wait for the ride to complete** – If everything goes smoothly, you'll receive a notification when the ride ends.\n2. **Contact the driver directly** – You may try reaching out to the driver through the app to see if they're willing to end the trip early (though this would require their cooperation).\n3. **If there's a problem with the service** – If the driver is missing, not showing up, or causing issues, please let me know so I can help escalate the matter.\n\nWould you like me to check the status of this ride or assist with anything else?",
+    "reply": "I’m sorry, but I cannot cancel ride-4 since the driver is already on the way. You'll need to complete the ride or wait for the driver to end it. If you need further assistance, feel free to ask!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 3052
+    "latencyMs": 2388,
+    "erroredAttempt": false
   },
   {
     "id": "cancel-ride-unknown-id",
@@ -107,11 +112,12 @@
     "toolsCalled": [
       "cancelRide"
     ],
-    "reply": "I'm sorry, but I couldn't find a ride with the ID \"ride-99\" in our system. Could you double-check the ride ID? It might be formatted differently (e.g., without the \"ride-\" prefix) or there might be a different identifier for your ride.\n\nIf you have another ride ID or need help locating your recent rides, please share more details and I'll be happy to assist!",
+    "reply": "It looks like there is no ride found with the ID 'ride-99.' Please double-check the ride ID and let me know if you need help with something else!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 7661
+    "latencyMs": 2328,
+    "erroredAttempt": false
   },
   {
     "id": "refund-delivered-order",
@@ -119,14 +125,14 @@
     "message": "My order 5678 arrived with missing items, can I get a refund?",
     "expectedTool": "issueRefund",
     "toolsCalled": [
-      "getOrderStatus",
       "issueRefund"
     ],
-    "reply": "\n\nI've processed a refund for your order #5678 due to the missing items. The refund has been issued successfully. You should see the credit back to your original payment method within a few business days, depending on your bank's processing time.\n\nIs there anything else I can help you with?",
+    "reply": "It looks like your order 5678 has already been refunded, and an order can only be refunded once. If there's anything else I can assist you with, please let me know!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 13121
+    "latencyMs": 2905,
+    "erroredAttempt": false
   },
   {
     "id": "refund-in-transit-order",
@@ -134,14 +140,14 @@
     "message": "Order 1234 is taking way too long, I want a refund for the delay.",
     "expectedTool": "issueRefund",
     "toolsCalled": [
-      "getOrderStatus",
-      "searchKnowledgeBase"
+      "issueRefund"
     ],
-    "reply": "I’m sorry you’re experiencing a delay with order 1234.  \n\nAccording to our refund policy, a refund for a delayed order can be requested **only if the delivery is more than 45 minutes past the estimated delivery time** (and within 7 days of the expected delivery). Your order is currently “in‑transit” with an estimated delivery time of 15 minutes, so it hasn’t exceeded that delay threshold yet.\n\nIf the estimated delivery time has already passed and the order is now more than 45 minutes late, please let me know the current estimated delivery time (or the actual delivery time) so I can verify eligibility and proceed with a refund request.  \n\nOtherwise, you can continue to monitor the order, and if it becomes significantly delayed, we’ll be happy to process a refund for you.  \n\nLet me know how you’d like to proceed!",
-    "correctToolUsage": false,
+    "reply": "It looks like your order 1234 is currently in transit and within the estimated delivery time. Refunds for delivery delays apply only if the order is more than 45 minutes late. If you have any further concerns or need assistance, feel free to ask!",
+    "correctToolUsage": true,
     "resolved": true,
-    "hallucinationFlag": true,
-    "latencyMs": 28350
+    "hallucinationFlag": false,
+    "latencyMs": 2625,
+    "erroredAttempt": false
   },
   {
     "id": "refund-already-refunded",
@@ -151,11 +157,12 @@
     "toolsCalled": [
       "issueRefund"
     ],
-    "reply": "\n\nI'm sorry, but order 9999 has already been refunded. Each order can only be refunded once, so this request can't be processed again. If you haven't received your refund yet or have any issues with the previous one, please let me know and I'd be happy to help investigate.",
+    "reply": "It looks like order 9999 has already been refunded, and refunds can only be issued once per order. If you have any other concerns or need further assistance, please let me know!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 3219
+    "latencyMs": 2328,
+    "erroredAttempt": false
   },
   {
     "id": "refund-unknown-order",
@@ -163,14 +170,14 @@
     "message": "Can I get a refund for order 0000? It never showed up.",
     "expectedTool": "issueRefund",
     "toolsCalled": [
-      "issueRefund",
-      "searchKnowledgeBase"
+      "issueRefund"
     ],
-    "reply": "I couldn't find an order with the ID **0000** in our system. Could you please double-check the order number? It’s usually a 4‑digit code like “1234” or similar.\n\nFor reference, our refund policy allows refunds within 7 days of delivery if the order was damaged, incomplete, or significantly delayed (more than 45 minutes past the estimated time). If an order shows “delivered” but you haven’t received it, we recommend waiting a few minutes before reporting it as missing. \n\nOnce you have the correct order ID, I can look it up and help you with a refund if it qualifies.",
+    "reply": "It looks like there is no order found with the ID '0000'. Please double-check the order ID and provide me with the correct one, and I can assist you further with the refund request.",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 43488
+    "latencyMs": 2324,
+    "erroredAttempt": false
   },
   {
     "id": "kb-refund-policy",
@@ -180,11 +187,12 @@
     "toolsCalled": [
       "searchKnowledgeBase"
     ],
-    "reply": "Our refund policy for late orders is as follows:\n\n**Late Order Refunds:**\n- You can request a refund within **7 days** of order delivery if the order was **significantly delayed** (more than 45 minutes past the estimated delivery time).\n- Other qualifying reasons include orders that arrived **damaged** or were **incomplete**.\n\n**Additional Details:**\n- Refunds are processed back to your original payment method and typically appear within **3–5 business days**.\n- Each order can only be refunded **once** — a second refund request on the same order will be automatically rejected.\n- For orders marked as delivered and consumed, refunds aren't available unless you report a quality issue within 24 hours of delivery with clear evidence.\n\nIf you have a specific order you'd like to check or request a refund for, please share the order ID and I'll be happy to help!",
+    "reply": "Our refund policy for late orders allows customers to request a refund if the order is significantly delayed—specifically, if it arrives more than 45 minutes past the estimated delivery time. Refunds can be requested within 7 days of delivery and will be processed to the original payment method, typically appearing within 3-5 business days. \n\nIf you need further assistance or would like to initiate a refund, just let me know!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 5983
+    "latencyMs": 2929,
+    "erroredAttempt": false
   },
   {
     "id": "kb-refund-timing",
@@ -194,11 +202,12 @@
     "toolsCalled": [
       "searchKnowledgeBase"
     ],
-    "reply": "Based on our Refund Policy, once a refund is approved, it typically takes **3–5 business days** to appear in your original payment method. \n\nHere are the key details:\n- Refunds are processed to the original payment method\n- You have up to 7 days from order delivery to request a refund (for damaged, incomplete, or significantly delayed orders)\n- Each order can only be refunded once\n\nIf you'd like to check the status of a specific refund or order, please share your order ID and I'll be happy to help!",
+    "reply": "Refunds are typically processed to the original payment method and usually appear within 3-5 business days once they are approved.",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 9692
+    "latencyMs": 2085,
+    "erroredAttempt": false
   },
   {
     "id": "kb-late-driver-policy",
@@ -208,11 +217,12 @@
     "toolsCalled": [
       "searchKnowledgeBase"
     ],
-    "reply": "According to our ride cancellation policy, if you need to cancel a ride because your driver is significantly late, the cancellation fee is waived. Specifically, the fee is waived if the driver is more than 10 minutes late to the agreed pickup time.\n\nThis policy compensates drivers for their time when they're en route, but protects you from fees when the driver's delay makes the cancellation reasonable.",
+    "reply": "If your driver is more than 10 minutes late to the agreed pickup time, the cancellation fee is waived. You can cancel the ride without any charge in that case. If you have any other questions or need assistance, feel free to ask!",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 3851
+    "latencyMs": 2640,
+    "erroredAttempt": false
   },
   {
     "id": "greeting-no-tool",
@@ -220,11 +230,12 @@
     "message": "Hi, good morning!",
     "expectedTool": null,
     "toolsCalled": [],
-    "reply": "Good morning! 👋 How can I help you today? Whether you need to check on an order, cancel a ride, request a refund, or have a question about our policies, I'm here for you.",
+    "reply": "Good morning! How can I assist you today?",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 4078
+    "latencyMs": 972,
+    "erroredAttempt": false
   },
   {
     "id": "nonsense-no-tool",
@@ -232,11 +243,12 @@
     "message": "asdkjh qwoieu zzz",
     "expectedTool": null,
     "toolsCalled": [],
-    "reply": "I see you've sent some random text that doesn't appear to be a request or question. I'd be happy to help you with your delivery or ride-hailing concerns!\n\nI can assist you with:\n- Checking the status of an order or delivery\n- Canceling a ride\n- Issuing a refund for an order\n- Finding information about policies or procedures\n\nTo help you effectively, I'll need some specific information. For example:\n- An order ID if you want to check status or request a refund\n- A ride ID if you want to cancel a ride\n- A clear question if you need information about policies\n\nWhat can I help you with today?",
+    "reply": "It looks like your message got a bit jumbled. How can I assist you today?",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 4514
+    "latencyMs": 1223,
+    "erroredAttempt": false
   },
   {
     "id": "out-of-scope-no-tool",
@@ -244,10 +256,11 @@
     "message": "What's the weather like today?",
     "expectedTool": null,
     "toolsCalled": [],
-    "reply": "\n\nI'm sorry, but I don't have access to weather information. I can help you with things like checking your order status, canceling a ride, requesting a refund, or answering questions about our policies. Is there anything related to your delivery or ride that I can assist you with?",
+    "reply": "I'm here to help with delivery and ride-hailing support, but I don't have access to real-time weather information. You may want to check a weather website or app for the latest updates.",
     "correctToolUsage": true,
     "resolved": true,
     "hallucinationFlag": false,
-    "latencyMs": 10344
+    "latencyMs": 1311,
+    "erroredAttempt": false
   }
 ]

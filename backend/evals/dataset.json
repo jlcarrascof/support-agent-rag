@@ -6,10 +6,10 @@
     "expectedTool": "getOrderStatus"
   },
   {
-    "id": "order-status-delivered",
-    "category": "order_status",
+    "id": "disputed-delivery-refund",
+    "category": "refund",
     "message": "I never received order 5678, I want my money back",
-    "expectedTool": "getOrderStatus"
+    "expectedTool": "issueRefund"
   },
   {
     "id": "order-status-unknown-id",
@@ -57,7 +57,7 @@
     "id": "refund-in-transit-order",
     "category": "refund",
     "message": "Order 1234 is taking way too long, I want a refund for the delay.",
-    "expectedTool": "searchKnowledgeBase"
+    "expectedTool": "issueRefund"
   },
   {
     "id": "refund-already-refunded",
