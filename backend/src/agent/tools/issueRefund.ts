@@ -1,6 +1,8 @@
 import { mockOrders } from "../mockData.js";
 import type { Tool } from "./types.js";
 
+const DELAY_REFUND_THRESHOLD_MINUTES = 45;
+
 export const issueRefundTool: Tool = {
   definition: {
     type: "function",
@@ -32,9 +34,17 @@ export const issueRefundTool: Tool = {
       return { error: `Order '${orderId}' has already been refunded. An order can only be refunded once.` };
     }
 
-    if (order.status === "placed" || order.status === "preparing") {
+    const isSignificantlyDelayed = order.minutesLate >= DELAY_REFUND_THRESHOLD_MINUTES;
+
+    if ((order.status === "placed" || order.status === "preparing") && !isSignificantlyDelayed) {
       return {
-        error: `Order '${orderId}' hasn't been delivered yet (status: ${order.status}). Refunds apply to delayed or delivered orders.`,
+        error: `Order '${orderId}' hasn't been delivered yet (status: ${order.status}). Refunds apply to orders delayed by ${DELAY_REFUND_THRESHOLD_MINUTES}+ minutes or already delivered.`,
+      };
+    }
+
+    if (order.status === "in_transit" && !isSignificantlyDelayed) {
+      return {
+        error: `Order '${orderId}' is in transit and only ${order.minutesLate} minute(s) past its estimate, which is within the normal delivery window. Refunds for delivery delays apply once an order is more than ${DELAY_REFUND_THRESHOLD_MINUTES} minutes late.`,
       };
     }
 
