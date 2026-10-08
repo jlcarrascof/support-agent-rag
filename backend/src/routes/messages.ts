@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { rateLimit } from "../middleware/rateLimit.js";
 import { runAgent } from "../agent/orchestrator.js";
 import { ensureCase, getMessageHistory, insertMessage, resolveCase } from "../services/cases.js";
 import { getCachedHistory, setCachedHistory } from "../services/conversationCache.js";
@@ -25,8 +26,8 @@ async function loadHistory(caseId: string): Promise<ChatMessage[]> {
   return fromDb;
 }
 
-router.post("/cases/:caseId/messages", async (req, res) => {
-  const { caseId } = req.params;
+router.post("/cases/:caseId/messages", rateLimit, async (req, res) => {
+  const caseId = String(req.params.caseId);
   const { message } = req.body as { message?: unknown };
 
   if (typeof message !== "string" || !message.trim()) {
