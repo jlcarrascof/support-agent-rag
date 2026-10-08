@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import type { ChatMessage } from "./types";
 import { MessageBubble } from "./MessageBubble";
 import { ToolCallBubble } from "./ToolCallBubble";
@@ -11,6 +12,12 @@ interface MessageListProps {
 }
 
 export function MessageList({ messages, isTyping }: MessageListProps) {
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, isTyping]);
+
   return (
     <div className="message-list">
       {messages.map((message) => {
@@ -19,6 +26,7 @@ export function MessageList({ messages, isTyping }: MessageListProps) {
         return <MessageBubble key={message.id} message={message} />;
       })}
       {isTyping && <TypingIndicator />}
+      <div ref={bottomRef} />
     </div>
   );
 }
