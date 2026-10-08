@@ -14,7 +14,7 @@ interface EventMessage {
  * should process it), false if it's a duplicate delivery that was already
  * processed before.
  */
-async function markProcessed(messageId: string, eventType: string): Promise<boolean> {
+export async function markProcessed(messageId: string, eventType: string): Promise<boolean> {
   try {
     await pool.query("INSERT INTO processed_events (message_id, event_type) VALUES ($1, $2)", [
       messageId,
