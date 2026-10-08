@@ -1,5 +1,5 @@
 import { pool } from "../db/client.js";
-import type { ChatMessage } from "../agent/openrouter.js";
+import type { ChatMessage } from "../agent/openai.js";
 
 export async function ensureCase(caseId: string): Promise<void> {
   await pool.query("INSERT INTO cases (id) VALUES ($1) ON CONFLICT (id) DO NOTHING", [caseId]);

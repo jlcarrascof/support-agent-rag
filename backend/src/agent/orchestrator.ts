@@ -1,4 +1,4 @@
-import { chatCompletion, type ChatMessage } from "./openrouter.js";
+import { chatCompletion, type ChatMessage } from "./openai.js";
 import { tools, toolDefinitions } from "./tools/index.js";
 
 const SYSTEM_PROMPT = `You are a customer support agent for a delivery and ride-hailing platform.

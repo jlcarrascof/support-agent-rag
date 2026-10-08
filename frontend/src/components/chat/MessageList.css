@@ -6,3 +6,10 @@
   overflow-y: auto;
   flex: 1;
 }
+
+@media (max-width: 600px) {
+  .message-list {
+    padding: var(--space-3);
+    gap: var(--space-2);
+  }
+}

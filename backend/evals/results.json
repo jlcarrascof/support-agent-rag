@@ -1,0 +1,266 @@
+[
+  {
+    "id": "order-status-basic",
+    "category": "order_status",
+    "message": "What's the status of my order 1234?",
+    "expectedTool": "getOrderStatus",
+    "toolsCalled": [
+      "getOrderStatus"
+    ],
+    "reply": "Your order 1234 is currently \"in transit\" and is estimated to be delivered in about 15 minutes.",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2749,
+    "erroredAttempt": false
+  },
+  {
+    "id": "disputed-delivery-refund",
+    "category": "refund",
+    "message": "I never received order 5678, I want my money back",
+    "expectedTool": "issueRefund",
+    "toolsCalled": [
+      "issueRefund"
+    ],
+    "reply": "I've processed the refund for your order 5678, as it was not received. You should see the amount credited back to your account shortly. If you have any other questions or need further assistance, feel free to ask!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2723,
+    "erroredAttempt": false
+  },
+  {
+    "id": "order-status-unknown-id",
+    "category": "order_status",
+    "message": "Can you check the status of order abcd for me?",
+    "expectedTool": "getOrderStatus",
+    "toolsCalled": [
+      "getOrderStatus"
+    ],
+    "reply": "It looks like there is no order found with the ID \"abcd.\" Please double-check the order ID and try again!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2340,
+    "erroredAttempt": false
+  },
+  {
+    "id": "cancel-ride-free-window",
+    "category": "cancel_ride",
+    "message": "Can you cancel my ride ride-1? I just booked it by mistake.",
+    "expectedTool": "cancelRide",
+    "toolsCalled": [
+      "cancelRide"
+    ],
+    "reply": "Your ride (ride-1) has been successfully cancelled at no charge, as it was within the booking window. If you need any further assistance, feel free to ask!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 3165,
+    "erroredAttempt": false
+  },
+  {
+    "id": "cancel-ride-with-fee",
+    "category": "cancel_ride",
+    "message": "I'd like to cancel ride-2, will I be charged a fee?",
+    "expectedTool": "cancelRide",
+    "toolsCalled": [
+      "cancelRide"
+    ],
+    "reply": "Your ride (ride-2) has been successfully canceled, but a cancellation fee has been applied because a driver was already assigned and en route. If you have any further questions, feel free to ask!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2413,
+    "erroredAttempt": false
+  },
+  {
+    "id": "cancel-ride-late-driver-waiver",
+    "category": "cancel_ride",
+    "message": "Can you cancel ride-3? The driver was super late getting to me.",
+    "expectedTool": "cancelRide",
+    "toolsCalled": [
+      "cancelRide"
+    ],
+    "reply": "I've successfully cancelled ride-3 for you. The cancellation fee has been waived since the driver was more than 10 minutes late. If you need further assistance, feel free to ask!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2681,
+    "erroredAttempt": false
+  },
+  {
+    "id": "cancel-ride-in-progress",
+    "category": "cancel_ride",
+    "message": "Please cancel ride-4, the driver is already on the way.",
+    "expectedTool": "cancelRide",
+    "toolsCalled": [
+      "cancelRide"
+    ],
+    "reply": "I’m sorry, but I cannot cancel ride-4 since the driver is already on the way. You'll need to complete the ride or wait for the driver to end it. If you need further assistance, feel free to ask!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2388,
+    "erroredAttempt": false
+  },
+  {
+    "id": "cancel-ride-unknown-id",
+    "category": "cancel_ride",
+    "message": "Cancel ride-99, please.",
+    "expectedTool": "cancelRide",
+    "toolsCalled": [
+      "cancelRide"
+    ],
+    "reply": "It looks like there is no ride found with the ID 'ride-99.' Please double-check the ride ID and let me know if you need help with something else!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2328,
+    "erroredAttempt": false
+  },
+  {
+    "id": "refund-delivered-order",
+    "category": "refund",
+    "message": "My order 5678 arrived with missing items, can I get a refund?",
+    "expectedTool": "issueRefund",
+    "toolsCalled": [
+      "issueRefund"
+    ],
+    "reply": "It looks like your order 5678 has already been refunded, and an order can only be refunded once. If there's anything else I can assist you with, please let me know!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2905,
+    "erroredAttempt": false
+  },
+  {
+    "id": "refund-in-transit-order",
+    "category": "refund",
+    "message": "Order 1234 is taking way too long, I want a refund for the delay.",
+    "expectedTool": "issueRefund",
+    "toolsCalled": [
+      "issueRefund"
+    ],
+    "reply": "It looks like your order 1234 is currently in transit and within the estimated delivery time. Refunds for delivery delays apply only if the order is more than 45 minutes late. If you have any further concerns or need assistance, feel free to ask!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2625,
+    "erroredAttempt": false
+  },
+  {
+    "id": "refund-already-refunded",
+    "category": "refund",
+    "message": "I want a refund for order 9999, it arrived damaged.",
+    "expectedTool": "issueRefund",
+    "toolsCalled": [
+      "issueRefund"
+    ],
+    "reply": "It looks like order 9999 has already been refunded, and refunds can only be issued once per order. If you have any other concerns or need further assistance, please let me know!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2328,
+    "erroredAttempt": false
+  },
+  {
+    "id": "refund-unknown-order",
+    "category": "refund",
+    "message": "Can I get a refund for order 0000? It never showed up.",
+    "expectedTool": "issueRefund",
+    "toolsCalled": [
+      "issueRefund"
+    ],
+    "reply": "It looks like there is no order found with the ID '0000'. Please double-check the order ID and provide me with the correct one, and I can assist you further with the refund request.",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2324,
+    "erroredAttempt": false
+  },
+  {
+    "id": "kb-refund-policy",
+    "category": "knowledge_base",
+    "message": "What's your refund policy for late orders?",
+    "expectedTool": "searchKnowledgeBase",
+    "toolsCalled": [
+      "searchKnowledgeBase"
+    ],
+    "reply": "Our refund policy for late orders allows customers to request a refund if the order is significantly delayed—specifically, if it arrives more than 45 minutes past the estimated delivery time. Refunds can be requested within 7 days of delivery and will be processed to the original payment method, typically appearing within 3-5 business days. \n\nIf you need further assistance or would like to initiate a refund, just let me know!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2929,
+    "erroredAttempt": false
+  },
+  {
+    "id": "kb-refund-timing",
+    "category": "knowledge_base",
+    "message": "How long do refunds take to process once they're approved?",
+    "expectedTool": "searchKnowledgeBase",
+    "toolsCalled": [
+      "searchKnowledgeBase"
+    ],
+    "reply": "Refunds are typically processed to the original payment method and usually appear within 3-5 business days once they are approved.",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2085,
+    "erroredAttempt": false
+  },
+  {
+    "id": "kb-late-driver-policy",
+    "category": "knowledge_base",
+    "message": "What happens with the cancellation fee if my driver shows up really late?",
+    "expectedTool": "searchKnowledgeBase",
+    "toolsCalled": [
+      "searchKnowledgeBase"
+    ],
+    "reply": "If your driver is more than 10 minutes late to the agreed pickup time, the cancellation fee is waived. You can cancel the ride without any charge in that case. If you have any other questions or need assistance, feel free to ask!",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 2640,
+    "erroredAttempt": false
+  },
+  {
+    "id": "greeting-no-tool",
+    "category": "no_tool",
+    "message": "Hi, good morning!",
+    "expectedTool": null,
+    "toolsCalled": [],
+    "reply": "Good morning! How can I assist you today?",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 972,
+    "erroredAttempt": false
+  },
+  {
+    "id": "nonsense-no-tool",
+    "category": "no_tool",
+    "message": "asdkjh qwoieu zzz",
+    "expectedTool": null,
+    "toolsCalled": [],
+    "reply": "It looks like your message got a bit jumbled. How can I assist you today?",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 1223,
+    "erroredAttempt": false
+  },
+  {
+    "id": "out-of-scope-no-tool",
+    "category": "no_tool",
+    "message": "What's the weather like today?",
+    "expectedTool": null,
+    "toolsCalled": [],
+    "reply": "I'm here to help with delivery and ride-hailing support, but I don't have access to real-time weather information. You may want to check a weather website or app for the latest updates.",
+    "correctToolUsage": true,
+    "resolved": true,
+    "hallucinationFlag": false,
+    "latencyMs": 1311,
+    "erroredAttempt": false
+  }
+]

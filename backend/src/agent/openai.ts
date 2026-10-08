@@ -1,9 +1,6 @@
-const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
+const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 
-// The free-models router auto-selects an available free model that supports
-// the request's required features (including tool-calling), instead of
-// pinning a specific model name that may rotate out of the free tier.
-const MODEL = "openrouter/free";
+const MODEL = "gpt-4o-mini";
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant" | "tool";
@@ -31,7 +28,7 @@ export interface ToolDefinition {
   };
 }
 
-interface OpenRouterResponse {
+interface OpenAIResponse {
   choices: Array<{
     message: ChatMessage;
     finish_reason: string;
@@ -42,10 +39,10 @@ export async function chatCompletion(
   messages: ChatMessage[],
   tools: ToolDefinition[]
 ): Promise<ChatMessage> {
-  const response = await fetch(OPENROUTER_URL, {
+  const response = await fetch(OPENAI_URL, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -57,9 +54,9 @@ export async function chatCompletion(
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`OpenRouter request failed: ${response.status} ${response.statusText} - ${body}`);
+    throw new Error(`OpenAI request failed: ${response.status} ${response.statusText} - ${body}`);
   }
 
-  const data = (await response.json()) as OpenRouterResponse;
+  const data = (await response.json()) as OpenAIResponse;
   return data.choices[0].message;
 }

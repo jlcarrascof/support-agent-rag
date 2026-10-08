@@ -4,13 +4,15 @@ export interface Order {
   id: string;
   status: OrderStatus;
   estimatedDeliveryMinutes: number;
+  minutesLate: number;
   refunded: boolean;
 }
 
 export const mockOrders: Record<string, Order> = {
-  "1234": { id: "1234", status: "in_transit", estimatedDeliveryMinutes: 15, refunded: false },
-  "5678": { id: "5678", status: "delivered", estimatedDeliveryMinutes: 0, refunded: false },
-  "9999": { id: "9999", status: "preparing", estimatedDeliveryMinutes: 35, refunded: true },
+  "1234": { id: "1234", status: "in_transit", estimatedDeliveryMinutes: 15, minutesLate: 0, refunded: false },
+  "4321": { id: "4321", status: "in_transit", estimatedDeliveryMinutes: 0, minutesLate: 50, refunded: false },
+  "5678": { id: "5678", status: "delivered", estimatedDeliveryMinutes: 0, minutesLate: 0, refunded: false },
+  "9999": { id: "9999", status: "preparing", estimatedDeliveryMinutes: 35, minutesLate: 0, refunded: true },
 };
 
 export type RideStatus = "requested" | "driver_assigned" | "in_progress" | "completed" | "cancelled";

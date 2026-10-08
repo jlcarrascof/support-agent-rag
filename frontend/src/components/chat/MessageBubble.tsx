@@ -10,6 +10,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
   return (
     <div className={`message-row ${isAgent ? "message-row--agent" : "message-row--user"}`}>
+      {isAgent && (
+        <span className="message-row__avatar" aria-hidden="true">
+          🤖
+        </span>
+      )}
       <div className={`message-bubble ${isAgent ? "message-bubble--agent" : "message-bubble--user"}`}>
         <p className="message-bubble__text">{message.text}</p>
         <span className="message-bubble__timestamp">{message.timestamp}</span>

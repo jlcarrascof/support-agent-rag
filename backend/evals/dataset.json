@@ -1,0 +1,110 @@
+[
+  {
+    "id": "order-status-basic",
+    "category": "order_status",
+    "message": "What's the status of my order 1234?",
+    "expectedTool": "getOrderStatus"
+  },
+  {
+    "id": "disputed-delivery-refund",
+    "category": "refund",
+    "message": "I never received order 5678, I want my money back",
+    "expectedTool": "issueRefund"
+  },
+  {
+    "id": "order-status-unknown-id",
+    "category": "order_status",
+    "message": "Can you check the status of order abcd for me?",
+    "expectedTool": "getOrderStatus"
+  },
+  {
+    "id": "cancel-ride-free-window",
+    "category": "cancel_ride",
+    "message": "Can you cancel my ride ride-1? I just booked it by mistake.",
+    "expectedTool": "cancelRide"
+  },
+  {
+    "id": "cancel-ride-with-fee",
+    "category": "cancel_ride",
+    "message": "I'd like to cancel ride-2, will I be charged a fee?",
+    "expectedTool": "cancelRide"
+  },
+  {
+    "id": "cancel-ride-late-driver-waiver",
+    "category": "cancel_ride",
+    "message": "Can you cancel ride-3? The driver was super late getting to me.",
+    "expectedTool": "cancelRide"
+  },
+  {
+    "id": "cancel-ride-in-progress",
+    "category": "cancel_ride",
+    "message": "Please cancel ride-4, the driver is already on the way.",
+    "expectedTool": "cancelRide"
+  },
+  {
+    "id": "cancel-ride-unknown-id",
+    "category": "cancel_ride",
+    "message": "Cancel ride-99, please.",
+    "expectedTool": "cancelRide"
+  },
+  {
+    "id": "refund-delivered-order",
+    "category": "refund",
+    "message": "My order 5678 arrived with missing items, can I get a refund?",
+    "expectedTool": "issueRefund"
+  },
+  {
+    "id": "refund-in-transit-order",
+    "category": "refund",
+    "message": "Order 1234 is taking way too long, I want a refund for the delay.",
+    "expectedTool": "issueRefund"
+  },
+  {
+    "id": "refund-already-refunded",
+    "category": "refund",
+    "message": "I want a refund for order 9999, it arrived damaged.",
+    "expectedTool": "issueRefund"
+  },
+  {
+    "id": "refund-unknown-order",
+    "category": "refund",
+    "message": "Can I get a refund for order 0000? It never showed up.",
+    "expectedTool": "issueRefund"
+  },
+  {
+    "id": "kb-refund-policy",
+    "category": "knowledge_base",
+    "message": "What's your refund policy for late orders?",
+    "expectedTool": "searchKnowledgeBase"
+  },
+  {
+    "id": "kb-refund-timing",
+    "category": "knowledge_base",
+    "message": "How long do refunds take to process once they're approved?",
+    "expectedTool": "searchKnowledgeBase"
+  },
+  {
+    "id": "kb-late-driver-policy",
+    "category": "knowledge_base",
+    "message": "What happens with the cancellation fee if my driver shows up really late?",
+    "expectedTool": "searchKnowledgeBase"
+  },
+  {
+    "id": "greeting-no-tool",
+    "category": "no_tool",
+    "message": "Hi, good morning!",
+    "expectedTool": null
+  },
+  {
+    "id": "nonsense-no-tool",
+    "category": "no_tool",
+    "message": "asdkjh qwoieu zzz",
+    "expectedTool": null
+  },
+  {
+    "id": "out-of-scope-no-tool",
+    "category": "no_tool",
+    "message": "What's the weather like today?",
+    "expectedTool": null
+  }
+]
