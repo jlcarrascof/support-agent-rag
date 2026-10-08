@@ -104,7 +104,7 @@ Generated: ${new Date().toISOString()}
 ## Summary
 
 - Cases run: ${total}
-- Request errors (OpenRouter/infra failures, not agent mistakes): ${erroredCount}/${total}
+- Request errors (OpenAI/infra failures, not agent mistakes): ${erroredCount}/${total}
 - Resolution rate: ${resolvedCount}/${total} (${Math.round((resolvedCount / total) * 100)}%)
 - Correct tool usage rate: ${correctToolCount}/${total} (${Math.round((correctToolCount / total) * 100)}%)
 - Hallucination flags: ${hallucinationCount}/${total}
@@ -123,10 +123,10 @@ ${rows}
 - "Hallucination flag" is a heuristic: it fires when a case expected a grounding tool call and the
   agent didn't make it, meaning the reply may have been invented rather than looked up. It does not
   inspect reply content against tool results.
-- The agent runs against the live OpenRouter free-model router, so results can vary slightly between
-  runs depending on which free model is routed.
-- A "request error" means the case never got a usable response from OpenRouter (e.g. a malformed or
-  empty response from the free-tier router) and is excluded from the resolution/tool-usage rates'
+- The agent runs against the live OpenAI API (gpt-4o-mini), so results can vary slightly between
+  runs.
+- A "request error" means the case never got a usable response from OpenAI (e.g. a transient API or
+  network failure) and is excluded from the resolution/tool-usage rates'
   numerator but counted in their denominator — it reflects infra flakiness, not an agent mistake.
 `;
 }

@@ -5,7 +5,7 @@ import { ensureCase, getMessageHistory, insertMessage, resolveCase } from "../se
 import { getCachedHistory, setCachedHistory } from "../services/conversationCache.js";
 import { publishEvent } from "../events/publish.js";
 import type { ToolCallRecord } from "../agent/orchestrator.js";
-import type { ChatMessage } from "../agent/openrouter.js";
+import type { ChatMessage } from "../agent/openai.js";
 
 const router = Router();
 

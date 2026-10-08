@@ -1,5 +1,5 @@
 import { redis } from "./redisClient.js";
-import type { ChatMessage } from "../agent/openrouter.js";
+import type { ChatMessage } from "../agent/openai.js";
 
 const TTL_SECONDS = 3600;
 const MAX_CACHED_MESSAGES = 10;

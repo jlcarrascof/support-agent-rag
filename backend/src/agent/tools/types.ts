@@ -1,4 +1,4 @@
-import type { ToolDefinition } from "../openrouter.js";
+import type { ToolDefinition } from "../openai.js";
 
 export interface Tool {
   definition: ToolDefinition;
