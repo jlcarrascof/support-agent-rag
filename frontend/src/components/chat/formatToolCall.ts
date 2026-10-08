@@ -1,4 +1,5 @@
 import type { ToolCallRecord } from "../../services/api";
+import type { ToolCallStatus } from "./types";
 
 interface OrderResult {
   status?: string;
@@ -18,6 +19,11 @@ interface RefundResult {
 
 interface SearchResult {
   results?: unknown[];
+}
+
+export function getToolCallStatus(call: ToolCallRecord): ToolCallStatus {
+  const result = call.result as Record<string, unknown>;
+  return typeof result?.error === "string" ? "error" : "completed";
 }
 
 export function formatToolCallSummary(call: ToolCallRecord): string {

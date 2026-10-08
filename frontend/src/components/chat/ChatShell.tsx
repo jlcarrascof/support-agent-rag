@@ -3,13 +3,24 @@ import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
 import { ConnectionIndicator } from "./ConnectionIndicator";
 import { useConnectionStatus } from "../../hooks/useConnectionStatus";
-import { sendMessage } from "../../services/api";
-import { formatToolCallSummary } from "./formatToolCall";
+import { sendMessage, ApiError } from "../../services/api";
+import { formatToolCallSummary, getToolCallStatus } from "./formatToolCall";
 import type { ChatMessage } from "./types";
 import "./ChatShell.css";
 
 function nowTimestamp(): string {
   return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function describeError(error: unknown): string {
+  if (error instanceof ApiError && error.status === 429) {
+    const wait = error.retryAfterSeconds ? `${error.retryAfterSeconds}s` : "a moment";
+    return `You're sending messages too fast. Please wait ${wait} and try again.`;
+  }
+  if (error instanceof ApiError) {
+    return `Sorry, the support agent couldn't process that: ${error.message}`;
+  }
+  return "Sorry, something went wrong reaching the support agent. Please try again.";
 }
 
 export function ChatShell() {
@@ -37,6 +48,7 @@ export function ChatShell() {
         text: formatToolCallSummary(call),
         timestamp: nowTimestamp(),
         toolName: call.name,
+        toolStatus: getToolCallStatus(call),
       }));
 
       setMessages((previous) => [
@@ -44,13 +56,13 @@ export function ChatShell() {
         ...toolMessages,
         { id: crypto.randomUUID(), role: "agent", text: reply, timestamp: nowTimestamp() },
       ]);
-    } catch {
+    } catch (error) {
       setMessages((previous) => [
         ...previous,
         {
           id: crypto.randomUUID(),
-          role: "agent",
-          text: "Sorry, something went wrong reaching the support agent. Please try again.",
+          role: "error",
+          text: describeError(error),
           timestamp: nowTimestamp(),
         },
       ]);
