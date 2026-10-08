@@ -4,6 +4,7 @@ import { MessageBubble } from "./MessageBubble";
 import { ToolCallBubble } from "./ToolCallBubble";
 import { ErrorBubble } from "./ErrorBubble";
 import { TypingIndicator } from "./TypingIndicator";
+import { EmptyState } from "./EmptyState";
 import "./MessageList.css";
 
 interface MessageListProps {
@@ -17,6 +18,14 @@ export function MessageList({ messages, isTyping }: MessageListProps) {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, isTyping]);
+
+  if (messages.length === 0 && !isTyping) {
+    return (
+      <div className="message-list">
+        <EmptyState />
+      </div>
+    );
+  }
 
   return (
     <div className="message-list">
