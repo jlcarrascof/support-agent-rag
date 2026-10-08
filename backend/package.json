@@ -12,7 +12,8 @@
     "migrate": "node-pg-migrate up --envPath .env",
     "migrate:down": "node-pg-migrate down --envPath .env",
     "migrate:create": "node-pg-migrate create",
-    "ingest": "tsx src/kb/ingest.ts"
+    "ingest": "tsx src/kb/ingest.ts",
+    "eval": "tsx evals/run.ts"
   },
   "license": "MIT",
   "devDependencies": {
