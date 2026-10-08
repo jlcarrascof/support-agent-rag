@@ -1,6 +1,7 @@
 .message-row {
   display: flex;
   width: 100%;
+  gap: var(--space-2);
 }
 
 .message-row--user {
@@ -9,6 +10,19 @@
 
 .message-row--agent {
   justify-content: flex-start;
+}
+
+.message-row__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-bg);
+  border: 1px solid var(--color-accent-border);
+  font-size: var(--font-size-sm);
 }
 
 .message-bubble {
