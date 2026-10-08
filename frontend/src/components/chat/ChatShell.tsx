@@ -4,7 +4,7 @@ import { ChatInput } from "./ChatInput";
 import { ConnectionIndicator } from "./ConnectionIndicator";
 import { useConnectionStatus } from "../../hooks/useConnectionStatus";
 import { sendMessage } from "../../services/api";
-import { formatToolCallSummary } from "./formatToolCall";
+import { formatToolCallSummary, getToolCallStatus } from "./formatToolCall";
 import type { ChatMessage } from "./types";
 import "./ChatShell.css";
 
@@ -37,6 +37,7 @@ export function ChatShell() {
         text: formatToolCallSummary(call),
         timestamp: nowTimestamp(),
         toolName: call.name,
+        toolStatus: getToolCallStatus(call),
       }));
 
       setMessages((previous) => [
