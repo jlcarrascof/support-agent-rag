@@ -21,9 +21,14 @@ export function ToolCallBubble({ message }: ToolCallBubbleProps) {
   const isError = message.toolStatus === "error";
 
   return (
-    <div className={`tool-call-bubble ${isError ? "tool-call-bubble--error" : "tool-call-bubble--completed"}`}>
+    <div
+      className={`tool-call-bubble ${isError ? "tool-call-bubble--error" : "tool-call-bubble--completed"}`}
+    >
       <span className="tool-call-bubble__icon">{iconFor(message)}</span>
-      <span className="tool-call-bubble__text">{message.text}</span>
+      <div className="tool-call-bubble__body">
+        <span className="tool-call-bubble__text">{message.text}</span>
+        <span className="tool-call-bubble__timestamp">{message.timestamp}</span>
+      </div>
     </div>
   );
 }
