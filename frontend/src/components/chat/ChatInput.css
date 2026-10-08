@@ -42,3 +42,13 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+@media (max-width: 600px) {
+  .chat-input {
+    padding: var(--space-3);
+  }
+
+  .chat-input__submit {
+    padding: var(--space-3) var(--space-4);
+  }
+}

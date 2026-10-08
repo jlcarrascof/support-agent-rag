@@ -60,3 +60,9 @@
   font-size: var(--font-size-xs);
   color: var(--color-text-subtle);
 }
+
+@media (max-width: 600px) {
+  .message-bubble {
+    max-width: 85%;
+  }
+}
