@@ -39,6 +39,15 @@ router.post("/cases/:caseId/messages", async (req, res) => {
       await publishEvent("case.resolved", { caseId, action: resolvingCall.name });
     }
 
+    const refundCall = toolCalls.find((call) => call.name === "issueRefund" && isSuccessfulResolution(call));
+    if (refundCall) {
+      await publishEvent("refund.issued", {
+        caseId,
+        orderId: refundCall.arguments.orderId,
+        reason: refundCall.arguments.reason,
+      });
+    }
+
     res.json({ reply, toolCalls });
   } catch (error) {
     console.error("Agent request failed:", error);
