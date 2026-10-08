@@ -1,4 +1,4 @@
-export type MessageRole = "user" | "agent" | "tool";
+export type MessageRole = "user" | "agent" | "tool" | "error";
 export type ToolCallStatus = "completed" | "error";
 
 export interface ChatMessage {
