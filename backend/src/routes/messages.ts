@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { runAgent } from "../agent/orchestrator.js";
 import { ensureCase, getMessageHistory, insertMessage, resolveCase } from "../services/cases.js";
+import { getCachedHistory, setCachedHistory } from "../services/conversationCache.js";
 import { publishEvent } from "../events/publish.js";
 import type { ToolCallRecord } from "../agent/orchestrator.js";
+import type { ChatMessage } from "../agent/openrouter.js";
 
 const router = Router();
 
@@ -12,6 +14,15 @@ function isSuccessfulResolution(call: ToolCallRecord): boolean {
   if (!RESOLVING_TOOLS.has(call.name)) return false;
   const result = call.result as Record<string, unknown>;
   return typeof result?.error !== "string";
+}
+
+async function loadHistory(caseId: string): Promise<ChatMessage[]> {
+  const cached = await getCachedHistory(caseId);
+  if (cached) return cached;
+
+  const fromDb = await getMessageHistory(caseId);
+  await setCachedHistory(caseId, fromDb);
+  return fromDb;
 }
 
 router.post("/cases/:caseId/messages", async (req, res) => {
@@ -25,13 +36,19 @@ router.post("/cases/:caseId/messages", async (req, res) => {
 
   try {
     await ensureCase(caseId);
-    const history = await getMessageHistory(caseId);
+    const history = await loadHistory(caseId);
     await insertMessage(caseId, "user", message);
 
     const { reply, toolCalls } = await runAgent(message, history);
 
     const toolName = toolCalls[0]?.name;
     await insertMessage(caseId, "agent", reply, toolName);
+
+    await setCachedHistory(caseId, [
+      ...history,
+      { role: "user", content: message },
+      { role: "assistant", content: reply },
+    ]);
 
     const resolvingCall = toolCalls.find(isSuccessfulResolution);
     if (resolvingCall) {
